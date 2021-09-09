@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 // ---------------------------------------------------------------------------------------------------------------
 // Helper class created to:
@@ -50,6 +51,32 @@ public class GateBasedSynchronization {
                 wait();
             }
         } catch(InterruptedException e) {
+            String gateNameList = generateGateNameList(searchGateNames);
+            log.warn(String.format( "InterruptedException while waiting for gate(s) '%1$s'", gateNameList), e);
+        }
+    }
+
+    public synchronized void waitForAny(long duration, TimeUnit timeUnit, String ... gateNames ) {
+        // Turn the incoming gate names into a Set
+        Set<String> searchGateNames = new HashSet<>(Arrays.asList(gateNames));
+
+        long millisecondsToWait = timeUnit.toMillis(duration);
+        long exitTime = System.currentTimeMillis() + millisecondsToWait;
+
+        try {
+            // See if any of the named gates have been opened
+            while(searchGateNames.stream().noneMatch(nextGate -> openGateNames.contains(nextGate) )) {
+
+                // If we have exceeded the wait time...exit.
+                if( System.currentTimeMillis() > exitTime ) {
+                    break;
+                }
+
+                // wait...and then check again
+                timeUnit.timedWait(this, duration);
+            }
+        }
+        catch (InterruptedException e) {
             String gateNameList = generateGateNameList(searchGateNames);
             log.warn(String.format( "InterruptedException while waiting for gate(s) '%1$s'", gateNameList), e);
         }
