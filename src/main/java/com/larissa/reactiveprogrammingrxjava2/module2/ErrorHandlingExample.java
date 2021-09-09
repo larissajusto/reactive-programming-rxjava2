@@ -11,6 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+// ---------------------------------------------------------------------------------------------------------------
+// Error Handling example with onErrorResumeNext
+// 1.  Any of the onError operator in RxJava will allow you to emit one or more results, but then it will
+// terminate the stream. Other onError operators: onErrorReturn, onErrorReturnItem
+// 2. If you want to suppress errors and then just continue with on with your stream,
+// then you would need a normal try-catch construct
+// ---------------------------------------------------------------------------------------------------------------
 public class ErrorHandlingExample {
 
     private static final Logger log = LoggerFactory.getLogger(ErrorHandlingExample.class);
