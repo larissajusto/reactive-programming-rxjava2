@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 // The first is used to create an initial state that will be used in each subsequent call to our emitter function.
 // The emitter function takes the state and, based on that state, make a decision as to whether it should
 // generate an onNext, an onComplete or an onError call
+//
+// Generate can be a lot more Flowable friendly, If the controlling Observable knows that it needs 3 more events
+// then it can call the emitter function 3 times
 // ---------------------------------------------------------------------------------------------------------------
 public class GenerateExample1 {
 

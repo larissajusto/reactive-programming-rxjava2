@@ -107,9 +107,8 @@ public class GreekAlphabet {
 
     public static Observable<String> greekAlphabetInEnglishHotObservable(final boolean logEachEmission) {
 
-        // Make an endless stream of greek letters by adding the "repeat"
-        // operator.  We also want to put this on it's own thread, so we
-        // tell it to subscribeOn the newThread scheduler.
+        // Make an endless stream of greek letters by adding the "repeat" operator.
+        // We also want to put this on it's own thread, so we tell it to subscribeOn the newThread scheduler.
         // THIS IS A BAD THING TO DO...THIS THREAD WILL RUN FOREVER AND THERE'S NO
         // WAY TO STOP IT...short of System.exit(0).  Demo purposes only.
         Observable<String> returnObservable = greekAlphabetInEnglishObservable()
