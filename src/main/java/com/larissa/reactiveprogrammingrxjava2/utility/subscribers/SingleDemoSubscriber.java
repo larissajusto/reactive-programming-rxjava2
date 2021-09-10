@@ -19,6 +19,12 @@ public class SingleDemoSubscriber<TEvent> implements SingleObserver<TEvent> {
     private final String errorGateName;
     private final String successGateName;
 
+    public SingleDemoSubscriber() {
+        this.gate = new GateBasedSynchronization();
+        this.errorGateName = "onError";
+        this.successGateName = "onSuccess";
+    }
+
     public SingleDemoSubscriber(GateBasedSynchronization gate, String errorGateName, String successGateName) {
         this.gate = gate;
         this.errorGateName = errorGateName;
