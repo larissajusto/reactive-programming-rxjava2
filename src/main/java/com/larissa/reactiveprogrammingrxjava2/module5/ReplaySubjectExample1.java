@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 // Whenever a new item is pushed in, if it exceeds the size, the oldest item will be pushed out
 public class ReplaySubjectExample1 {
 
-    private final static Logger log = LoggerFactory.getLogger(BehaviorSubjectExample1.class);
+    private final static Logger log = LoggerFactory.getLogger(ReplaySubjectExample1.class);
 
     public static void main(String[] args) {
 
